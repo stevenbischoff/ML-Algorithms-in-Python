@@ -53,8 +53,7 @@ class KNN():
         Returns:
         """
         return sum([self.all_category_distances[i][(x1[i],x2[i])] for i in x1.index])**(1/self.p)
-
-    
+   
     def get_distances(self, x1, X):
         """
         This method calculates the distance between point x1 and every point in
@@ -207,16 +206,15 @@ class KNN_regressor(KNN):
         elif measure == 'threshold':
             return len(y_test[abs(y_test - y_hat) < eps])
 
-    # 
     def edit(self, test_df, eps, category_values=None):
         """
         This method performs the editing process and returns a new
         KNN_regressor. Uses the eps parameter to determine "correct
         classification".
         Args:
-            test_df:
-            eps:
-            category_values:           
+            test_df: dataframe
+            eps: float
+            category_values: passed to set_category_distances       
         Returns:
             KNN_regressor
         """
@@ -255,13 +253,12 @@ class KNN_regressor(KNN):
                 p_best = p_temp
 
         return cls
-
-       
+      
     def condense(self, eps):
         """
         This method performs the condensing process in-place. 
         Args:
-            eps:
+            eps: float
         """
         self.X = self.X.sample(frac=1)
 
@@ -289,7 +286,6 @@ class KNN_regressor(KNN):
 
         self.X = Z
         self.y = y_new
-
 
 # Classifier sub-class
 class KNN_classifier(KNN):
@@ -326,8 +322,8 @@ class KNN_classifier(KNN):
         This method performs the editing process and returns a new
         KNN_classifier.
         Args:
-            test_df:
-            category_values:
+            test_df: dataframe
+            category_values: passed to set_category_distances
         Returns:
             KNN_classifier
         """
@@ -350,7 +346,8 @@ class KNN_classifier(KNN):
                     cls = KNN_classifier(cls.train_df.drop(index=i),
                                          cls.features, cls.dep_var,
                                          k=cls.k,
-                                         categorical_variables=cls.categorical_variables, metric=cls.metric)               
+                                         categorical_variables=cls.categorical_variables,
+                                         metric=cls.metric)               
                     cls.set_category_distances(category_values)
 
             y_hat = cls.predict(test_df[cls.features])            
@@ -381,7 +378,6 @@ class KNN_classifier(KNN):
         addition = True
 
         while addition:
-
             addition = False
             for i, x in self.X.iterrows():
                 distances = self.get_distances(x, Z).sort_values()                
