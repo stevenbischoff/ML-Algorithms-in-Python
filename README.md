@@ -11,10 +11,10 @@ This folder contains classes for K-Nearest Neighbors for both classification and
 
 The classes also include methods that implement Edited and Condensed KNN, which help alleviate the computational expense of KNN on large datasets.
 
-## Decision Trees
-
-TBA
-
 ## Reinforcement Learning
+
+algorithms.py contains a learner class that uses reinforcement learning to quickly steer a simulated car around a track without crashing. The class implements three different learning algorithms: value iteration, Q-Learning, and SARSA. 
+
+## Decision Trees
 
 TBA
